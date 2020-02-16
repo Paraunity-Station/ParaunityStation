@@ -13,7 +13,7 @@ public class Horn : MonoBehaviour, ICheckedInteractable<HandActivate>, ICheckedI
 	//todo: emit HONK particles
 
 	/// <summary>
-	/// Chance of causing minor ear injury when honking next to a living being
+	/// Chance of causing minor ear injury when honking next to a living being, its set to 10 percent
 	/// </summary>
 	[Range(0f, 1f)]
 	public float CritChance = 0.1f;
