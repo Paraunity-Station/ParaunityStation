@@ -14,21 +14,29 @@ for file in os.listdir('.'):
 mf = "cyberiad.txt"
 # Creates the "base" of the map (The prefabs and managers needed to make a map work)
 
-if Fconv:
-    uname = mf[0:len(mf) - 4] + ".unity"
-    open(uname, "x")
-    w = open(uname, "a")
-    e = open("Base_Data.txt", "r")
-    w.write(e.read())
-    w.close()
-else:
-    print("Error: No convertable .dmm files!")
+#if Fconv:
+    #uname = mf[0:len(mf) - 4] + ".unity"
+    #open(uname, "x")
+    #w = open(uname, "a")
+    #e = open("Base_Data.txt", "r")
+    #w.write(e.read())
+    #w.close()
+#else:
+    #print("Error: No convertable .dmm files!")
 # Reads data from the new .txt file and interprets the tile data
+klst = ["turf","structure","machinery"]
+tlst = ["simulated",]
 if Fconv:
     fd = open(mf, "r")
     fd = fd.read()
-    for x in range(len(fd) - 1):
-        if fd[x:x + 1] == "a":
-            if fd[x:x + 2] == "aa":
-                pass
-# need help automatically setting defines for tiles
+    for x in range(len(fd)):
+        print(x)
+        print(len(fd))
+        if fd[x:x+1] == "\"":
+            y = x
+            for y in range(len(fd)):
+                if fd[y+5:y+6] == "\"":
+                    y = y + 5
+            if
+# defunct until I somehow figure out a way to automatically set defines for tiles
+
