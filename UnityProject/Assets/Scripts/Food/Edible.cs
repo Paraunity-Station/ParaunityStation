@@ -8,13 +8,10 @@ using Mirror;
 /// </summary>
 public class Edible : NetworkBehaviour, IClientInteractable<HandActivate>, IClientInteractable<HandApply>
 {
-    public GameObject leavings;
-    protected bool isDrink = false;
+	public GameObject leavings;
+	protected bool isDrink = false;
 
-	//TODO remove after deathmatches
-	[Header("Being used for TDM")] public int healAmount;
-
-	public int healHungerAmount;
+	public int nutritionLevel = 5;
 
 	private void Awake()
 	{
@@ -34,10 +31,11 @@ public class Edible : NetworkBehaviour, IClientInteractable<HandActivate>, IClie
 	public void NPCTryEat()
 	{
 		SoundManager.PlayNetworkedAtPos("EatFood", transform.position);
-		if (leavings != null)
+		//Keeping this out allows food to be eaten and disappeared, change to despawn at some point.
+		/*if (leavings != null)
 		{
 			Spawn.ServerPrefab(leavings, transform.position, transform.parent);
-		}
+		}*/
 
 		GetComponent<CustomNetTransform>().DisappearFromWorldServer();
 	}
@@ -62,4 +60,5 @@ public class Edible : NetworkBehaviour, IClientInteractable<HandActivate>, IClie
 
 		return false;
 	}
+	
 }

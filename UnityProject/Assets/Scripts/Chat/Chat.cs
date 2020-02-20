@@ -336,7 +336,8 @@ public partial class Chat : MonoBehaviour
 		{
 			channels = ChatChannel.Combat,
 			message = message,
-			position = victim.WorldPosServer()
+			position = victim.WorldPosServer(),
+			originator = victim
 		});
 	}
 
@@ -369,7 +370,7 @@ public partial class Chat : MonoBehaviour
 	/// </summary>
 	/// <param name="message">The message to show in the chat stream</param>
 	/// <param name="worldPos">The position of the local message</param>
-	public static void AddLocalMsgToChat(string message, Vector2 worldPos)
+	public static void AddLocalMsgToChat(string message, Vector2 worldPos, GameObject originator)
 	{
 		if (!IsServer()) return;
 		Instance.TryStopCoroutine(ref composeMessageHandle);
@@ -378,7 +379,8 @@ public partial class Chat : MonoBehaviour
 		{
 			channels = ChatChannel.Local,
 			message = message,
-			position = worldPos
+			position = worldPos,
+			originator = originator
 		});
 	}
 
@@ -422,6 +424,18 @@ public partial class Chat : MonoBehaviour
 				AddExamineMsgFromServer(recipient, message);
 				break;
 		}
+	}
+
+	public static void AddWarningMsgFromServer(GameObject recipient, string msg)
+	{
+		if (!IsServer()) return;
+		UpdateChatMessage.Send(recipient, ChatChannel.Warning, ChatModifier.None, msg);
+	}
+
+	public static void AddWarningMsgToClient(string message)
+	{
+		message = ProcessMessageFurther(message, "", ChatChannel.Warning, ChatModifier.None); //TODO: Put processing in a unified place for server and client.
+		Instance.addChatLogClient.Invoke(message, ChatChannel.Warning);
 	}
 
 	public static void AddAdminPrivMsg(string message, string adminId)

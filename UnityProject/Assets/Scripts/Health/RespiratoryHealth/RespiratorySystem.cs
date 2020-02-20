@@ -45,15 +45,12 @@ public class RespiratorySystem : MonoBehaviour //Do not turn into NetBehaviour
 
 	void OnEnable()
 	{
-		UpdateManager.Instance.Add(UpdateMe);
+		UpdateManager.Add(CallbackType.UPDATE, UpdateMe);
 	}
 
 	void OnDisable()
 	{
-		if (UpdateManager.Instance != null)
-		{
-			UpdateManager.Instance.Remove(UpdateMe);
-		}
+		UpdateManager.Remove(CallbackType.UPDATE, UpdateMe);
 	}
 
 	//Handle by UpdateManager
@@ -119,7 +116,9 @@ public class RespiratorySystem : MonoBehaviour //Do not turn into NetBehaviour
 		if (oxygenUsed > 0)
 		{
 			breathGasMix.RemoveGas(Gas.Oxygen, oxygenUsed);
-			breathGasMix.AddGas(Gas.CarbonDioxide, oxygenUsed);
+			node.GasMix.AddGas(Gas.CarbonDioxide, oxygenUsed);
+			MatrixManager.Get(playerScript.PlayerSync.ServerState.MatrixId).
+							  MetaDataLayer.UpdateSystemsAt(playerScript.PlayerSync.ServerLocalPosition);
 		}
 
 		gasMix += breathGasMix;
