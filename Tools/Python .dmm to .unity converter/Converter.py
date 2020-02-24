@@ -37,6 +37,5 @@ if Fconv:
             for y in range(len(fd)):
                 if fd[y+5:y+6] == "\"":
                     y = y + 5
-            if
 # defunct until I somehow figure out a way to automatically set defines for tiles
 

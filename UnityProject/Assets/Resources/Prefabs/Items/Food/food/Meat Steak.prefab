@@ -15,7 +15,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   leavings: {fileID: 1110193000772614, guid: 252b1325bc181714a9aaadbaf3c8147d, type: 3}
-  NutrientsHealAmount: 40
+  nutritionLevel: 5
 --- !u!1001 &6128081887975217483
 PrefabInstance:
   m_ObjectHideFlags: 0
